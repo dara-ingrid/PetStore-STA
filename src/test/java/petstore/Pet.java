@@ -16,20 +16,20 @@ import static org.hamcrest.Matchers.contains;
 //3 - Classe
 public class Pet {
     //3.1 - Atributos
-    String uri = "https://petstore.swagger.io/v2/pet"; //Endere√ßo da Entidade Pet
+    String uri = "https://petstore.swagger.io/v2/pet"; //EndereÁo da Entidade Pet
 
-    //3.2 - Metodos e Fun√ßoes
+    //3.2 - Metodos e FunÁoes
     public String lerJson(String caminhoJson) throws IOException {
         return new String(Files.readAllBytes(Paths.get(caminhoJson)));
     }
 
     //Incluir - Create - Post
-    @Test //Identifica o m√©todo ou fun√ß√£o para o TestNG
+    @Test (priority = 1)//Identifica o mÈtodo ou funÁ„o para o TestNG
     public void incluirPet() throws IOException {
         String jsonBody = lerJson("db/pet1.json");
 
         //Sintaxe Gherkin
-        //Dado - Quando - Ent√£o
+        //Dado - Quando - Ent„o
         //Given - When - Then
 
         given()  // Dado
@@ -38,14 +38,37 @@ public class Pet {
                 .body(jsonBody)
         .when()  // Quando
                 .post(uri)
-        .then()  // Ent√£o
+        .then()  // Ent„o
                 .log().all()
                 .statusCode(200)
                 .body("name", is ("Banguela"))
                 .body("status", is("available"))
-                .body("category.name", is ("dog"))
-                .body("tags.name", contains("sta"))
+                .body("category.name", is ("ANWE9DJI642GQREG37AWS8"))
+                .body("tags.name", contains("data"))
         ;
+    }
+
+    @Test (priority = 2)
+    public void consultarPet () {
+        String petID = "1996050345";
+
+        String token =
+        given()
+                .contentType("application/json")
+                .log().all()
+        .when()
+                .get(uri + "/" + petID)
+        .then()
+                .log().all()
+                .statusCode(200)
+                .body("name", is ("Banguela"))
+                .body("category.name", is ("ANWE9DJI642GQREG37AWS8"))
+                .body("status", is ("available"))
+        .extract()
+                .path("category.name")
+        ;
+
+        System.out.println("O Token È: " + token);
 
 
     }
