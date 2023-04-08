@@ -21,7 +21,6 @@ Para utilizar o projeto PetStore-STA, siga as instruções abaixo:
 1. Faça o clone do repositório em sua máquina local
 
 ```
-bashCopy code
 git clone https://github.com/seu-usuario/petstore-sta.git
 ```
 
@@ -29,7 +28,6 @@ git clone https://github.com/seu-usuario/petstore-sta.git
 2. Execute os testes da API com o comando abaixo:
 
 ```
-bashCopy code
 gradle test
 ```
 
